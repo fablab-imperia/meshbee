@@ -1,0 +1,130 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: beehive-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: beehive_iot
+      POSTGRES_USER: beehive_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - beehive-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U beehive_user -d beehive_iot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Mosquitto MQTT Broker (con autenticazione)
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: beehive-mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    networks:
+      - beehive-network
+    healthcheck:
+      test: ["CMD-SHELL", "mosquitto_pub -h localhost -t '$$SYS/test' -m '' -u ${MQTT_USER:-beehive} -P ${MQTT_PASSWORD} 2>/dev/null || exit 0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Seed: crea utenti con hash bcrypt reali (gira una sola volta)
+  seed:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: beehive-seed
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: beehive_iot
+      DB_USER: beehive_user
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      USER_PASSWORD: ${USER_PASSWORD}
+    networks:
+      - beehive-network
+    volumes:
+      - ./api:/app
+    command: python seed.py
+
+  # MQTT Data Handler
+  mqtt-handler:
+    build:
+      context: ./mqtt-handler
+      dockerfile: Dockerfile
+    container_name: beehive-mqtt-handler
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mosquitto:
+        condition: service_started
+    environment:
+      MQTT_BROKER: mosquitto
+      MQTT_PORT: 1883
+      MQTT_TOPIC: beehive/+/data
+      MQTT_USER: ${MQTT_USER:-beehive}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: beehive_iot
+      DB_USER: beehive_user
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - beehive-network
+    volumes:
+      - ./mqtt-handler:/app
+
+  # FastAPI Backend
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: beehive-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: beehive_iot
+      DB_USER: beehive_user
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      REFRESH_TOKEN_EXPIRE_DAYS: 7
+    ports:
+      - "8000:8000"
+    networks:
+      - beehive-network
+    volumes:
+      - ./api:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+networks:
+  beehive-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local

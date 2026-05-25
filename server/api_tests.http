@@ -1,0 +1,130 @@
+# Beehive IoT - API Test Collection
+# Usa con Thunder Client o REST Client extension
+
+### Variables
+@baseUrl = http://localhost:8000
+@adminEmail = admin@beehive.local
+@adminPassword = YOUR_ADMIN_PASSWORD
+@userEmail = utente@test.local
+@userPassword = YOUR_USER_PASSWORD
+
+### 1. Health Check
+GET {{baseUrl}}/health
+
+### 2. Login Admin
+# @name loginAdmin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{adminEmail}}",
+  "password": "{{adminPassword}}"
+}
+
+### 3. Login User
+# @name loginUser
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{userEmail}}",
+  "password": "{{userPassword}}"
+}
+
+### 4. Get Current User Info
+GET {{baseUrl}}/api/auth/me
+Authorization: Bearer {{loginUser.response.body.access_token}}
+
+### 5. Get User Arnie
+GET {{baseUrl}}/api/user/arnie
+Authorization: Bearer {{loginUser.response.body.access_token}}
+
+### 6. Get Letture Arnia (ID 1)
+GET {{baseUrl}}/api/user/arnie/1/letture?limit=10
+Authorization: Bearer {{loginUser.response.body.access_token}}
+
+### 7. Get Attività Arnia (ID 1)
+GET {{baseUrl}}/api/user/arnie/1/attivita?limit=10
+Authorization: Bearer {{loginUser.response.body.access_token}}
+
+### 8. Add Attività
+POST {{baseUrl}}/api/user/arnie/1/attivita
+Authorization: Bearer {{loginUser.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "id_arnia": 1,
+  "tipo_attivita": "ispezione",
+  "descrizione": "Controllo settimanale da VS Code",
+  "dati": {
+    "telaini_miele": 8,
+    "covata_presente": true,
+    "regina_vista": true,
+    "note": "Tutto regolare"
+  }
+}
+
+### 9. Get Allarmi Arnia (ID 1)
+GET {{baseUrl}}/api/user/arnie/1/allarmi?solo_attivi=true
+Authorization: Bearer {{loginUser.response.body.access_token}}
+
+### 10. [ADMIN] Get All Users
+GET {{baseUrl}}/api/admin/utenti
+Authorization: Bearer {{loginAdmin.response.body.access_token}}
+
+### 11. [ADMIN] Create User
+POST {{baseUrl}}/api/admin/utenti
+Authorization: Bearer {{loginAdmin.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "email": "nuovo.utente@example.com",
+  "password": "password123",
+  "nome": "Mario",
+  "cognome": "Rossi",
+  "ruolo": "user"
+}
+
+### 12. [ADMIN] Get All Nodi
+GET {{baseUrl}}/api/admin/nodi
+Authorization: Bearer {{loginAdmin.response.body.access_token}}
+
+### 13. [ADMIN] Get All Arnie
+GET {{baseUrl}}/api/admin/arnie
+Authorization: Bearer {{loginAdmin.response.body.access_token}}
+
+### 14. [ADMIN] Create Arnia
+POST {{baseUrl}}/api/admin/arnie
+Authorization: Bearer {{loginAdmin.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "id_nodo": "NODE001",
+  "id_sensore_fisico": "SENSOR03",
+  "nome_arnia": "Arnia Gamma",
+  "descrizione": "Arnia creata da VS Code",
+  "posizione": "Fila 1, Posizione 3",
+  "metadati": {
+    "razza": "Buckfast",
+    "anno_regina": 2024
+  }
+}
+
+### 15. [ADMIN] Associate User to Arnia
+POST {{baseUrl}}/api/admin/utenti-arnie
+Authorization: Bearer {{loginAdmin.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "id_utente": 2,
+  "id_arnia": 1,
+  "permessi": "admin"
+}
+
+### 16. [ADMIN] Get All Letture
+GET {{baseUrl}}/api/admin/letture?limit=20
+Authorization: Bearer {{loginAdmin.response.body.access_token}}
+
+### 17. [ADMIN] Get All Attività
+GET {{baseUrl}}/api/admin/attivita?limit=20
+Authorization: Bearer {{loginAdmin.response.body.access_token}}
