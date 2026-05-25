@@ -319,7 +319,7 @@ Librerie: HX711, DHT, PubSubClient
 
 ## 📄 Licenza
 
-Questo progetto è distribuito sotto licenza MIT.
+Questo progetto è distribuito sotto licenza GPLv3.
 
 ## 👥 Team
 
