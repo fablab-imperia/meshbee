@@ -7,15 +7,20 @@ Sistema completo per il monitoraggio IoT di arnie con app mobile, backend server
 ## 📁 Struttura del Progetto
 
 ```
-beehive-iot/
-├── MobileApp/          # App mobile React Native/Expo
+meshbee/
+├── mobile-app/         # App mobile React Native/Expo
 │   ├── app/           # Schermate e routing (Expo Router)
 │   ├── components/    # Componenti UI riutilizzabili
-│   ├── services/      # Servizi API e business logic
-│   ├── contexts/      # Context providers (Auth, Theme)
+│   │   ├── charts/   # Grafici e visualizzazioni dati
+│   │   └── ui/       # Componenti UI di base
+│   ├── config/        # Configurazione (API endpoint)
+│   ├── constants/     # Costanti (tema, colori)
+│   ├── contexts/      # Context providers (Auth)
 │   ├── hooks/         # Custom React hooks
+│   ├── services/      # Servizi API e business logic
 │   ├── types/         # TypeScript type definitions
 │   ├── assets/        # Immagini, font, icone
+│   ├── docs/          # Documentazione app mobile
 │   └── package.json   # Dipendenze app mobile
 │
 ├── server/            # Backend IoT (API REST + MQTT)
@@ -23,13 +28,16 @@ beehive-iot/
 │   ├── mqtt-handler/ # Handler messaggi MQTT dai sensori
 │   ├── database/     # Schema PostgreSQL e migrations
 │   ├── mosquitto/    # Configurazione MQTT broker
+│   ├── docs/         # Documentazione server
 │   └── docker-compose.yml
 │
-└── Arnie/            # Hardware e Arduino
+└── hardware/          # Hardware e Arduino
     ├── Arduino/      # Codice ESP32 per sensori
-    ├── 3D_print/     # File STL per stampa 3D
-    ├── scheda/       # Schemi elettrici (Fritzing)
-    └── App/          # App mobile legacy (App Inventor)
+    │   ├── receiver/ # Firmware ricevitore (gateway MQTT)
+    │   ├── sender/   # Firmware trasmettitore (sensori)
+    │   └── HX711/    # Libreria celle di carico
+    ├── 3d-print/     # File CAD per stampa 3D (FreeCAD)
+    └── pcb/          # Schemi elettrici e documentazione
 ```
 
 ## 🚀 Primo Avvio
@@ -109,7 +117,7 @@ make db-shell      # shell PostgreSQL
 **a) Configura l'URL del backend**
 
 ```bash
-cd MobileApp
+cd mobile-app
 cp .env.example .env
 ```
 
@@ -143,7 +151,7 @@ Scansiona il QR code con l'app **Expo Go** (iOS/Android) oppure premi `a` per l'
 
 **a) Configura le credenziali**
 
-Apri il file `Arnie/Arduino/arnia_receiver_1_0001_2026_02_16/credentials.h` e sostituisci i placeholder `xxx` con i valori reali:
+Apri il file `hardware/Arduino/receiver/credentials.h` e sostituisci i placeholder `xxx` con i valori reali:
 
 ```c
 const char* mqtt_server = "192.168.1.100";  // IP del tuo server
@@ -154,14 +162,14 @@ const char* ssid        = "NomeRete";       // SSID Wi-Fi
 const char* password    = "...";            // password Wi-Fi
 ```
 
-> ⚠️ Non committare `credentials.h` dopo aver inserito le credenziali reali.
+> ⚠️ Non committare `credentials.h` dopo aver inserito le credenziali reali. Usa il file `credentials.h.example` come riferimento.
 
 **b) Carica il firmware**
 
 1. Apri Arduino IDE 2.x
 2. Installa il board support per ESP32 (Boards Manager → `esp32 by Espressif`)
 3. Installa le librerie: `HX711`, `DHT sensor library`, `PubSubClient`, `ArduinoJson`
-4. Apri il file `.ino` corretto (sender o receiver)
+4. Apri il file `.ino` corretto (`sender/sender.ino` o `receiver/receiver.ino`)
 5. Seleziona la board `ESP32 Dev Module` e la porta COM/USB corretta
 6. Clicca **Upload**
 
@@ -178,7 +186,7 @@ make logs-mqtt
 ```
 ┌─────────────────┐
 │  App Mobile     │  ← React Native + Expo
-│  (MobileApp/)   │     - Autenticazione
+│  (mobile-app/)  │     - Autenticazione
 └────────┬────────┘     - UI/UX nativa
          │ HTTPS
          ▼
@@ -212,14 +220,14 @@ make logs-mqtt
          │
 ┌────────┴────────┐
 │  ESP32 + HX711  │  ← Hardware sensori
-│  (Arnie/)       │     - Temperatura
+│  (hardware/)    │     - Temperatura
 └─────────────────┘     - Umidità
                         - Peso (celle di carico)
 ```
 
 ## 📱 Componenti Principali
 
-### MobileApp (React Native/Expo)
+### mobile-app (React Native/Expo)
 - **Framework**: Expo Router (file-based routing)
 - **UI**: React Native + componenti custom
 - **Auth**: Authentication
@@ -267,20 +275,21 @@ Librerie: HX711, DHT, PubSubClient
 ## 📚 Documentazione Dettagliata
 
 ### App Mobile
-- [`MobileApp/README.md`](MobileApp/README.md) - Setup e sviluppo
-- [`MobileApp/IMPLEMENTATION_SUMMARY.md`](MobileApp/IMPLEMENTATION_SUMMARY.md) - Implementazione
-- [`MobileApp/NOTIFICATIONS_SETUP.md`](MobileApp/NOTIFICATIONS_SETUP.md) - Notifiche push
+- [`mobile-app/README.md`](mobile-app/README.md) - Setup e sviluppo
+- [`mobile-app/docs/IMPLEMENTATION_SUMMARY.md`](mobile-app/docs/IMPLEMENTATION_SUMMARY.md) - Implementazione
+- [`mobile-app/docs/NOTIFICATIONS_SETUP.md`](mobile-app/docs/NOTIFICATIONS_SETUP.md) - Notifiche push
+- [`mobile-app/docs/MIGRATION_FASTAPI.md`](mobile-app/docs/MIGRATION_FASTAPI.md) - Migrazione a FastAPI
   
 ### Server Backend
 - [`server/README.md`](server/README.md) - Documentazione completa API
-- [`server/QUICKSTART.md`](server/QUICKSTART.md) - Guida rapida
-- [`server/PROGETTO.md`](server/PROGETTO.md) - Architettura e decisioni
-- [`server/VSCODE_GUIDE.md`](server/VSCODE_GUIDE.md) - Setup VS Code
+- [`server/docs/QUICKSTART.md`](server/docs/QUICKSTART.md) - Guida rapida
+- [`server/docs/PROGETTO.md`](server/docs/PROGETTO.md) - Architettura e decisioni
+- [`server/docs/VSCODE_GUIDE.md`](server/docs/VSCODE_GUIDE.md) - Setup VS Code
 
 ### Hardware
-- Schemi elettrici in `Arnie/scheda/`
-- File 3D print in `Arnie/3D_print/`
-- Codice Arduino in `Arnie/Arduino/`
+- Schemi elettrici in `hardware/pcb/`
+- File 3D print in `hardware/3d-print/`
+- Codice Arduino in `hardware/Arduino/`
 
 ## 🌟 Features
 
