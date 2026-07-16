@@ -7,8 +7,8 @@ Sistema completo per il monitoraggio IoT di arnie con app mobile, backend server
 ## 📁 Struttura del Progetto
 
 ```
-meshbee/
-├── mobile-app/         # App mobile React Native/Expo
+meshbee/                # main repository
+├── meshbee-app/         # App mobile React Native/Expo Repository
 │   ├── app/           # Schermate e routing (Expo Router)
 │   ├── components/    # Componenti UI riutilizzabili
 │   │   ├── charts/   # Grafici e visualizzazioni dati
@@ -23,7 +23,7 @@ meshbee/
 │   ├── docs/          # Documentazione app mobile
 │   └── package.json   # Dipendenze app mobile
 │
-├── server/            # Backend IoT (API REST + MQTT)
+├── meshbee-server/   # Backend IoT (API REST + MQTT) repository
 │   ├── api/          # FastAPI REST API
 │   ├── mqtt-handler/ # Handler messaggi MQTT dai sensori
 │   ├── database/     # Schema PostgreSQL e migrations
@@ -31,14 +31,22 @@ meshbee/
 │   ├── docs/         # Documentazione server
 │   └── docker-compose.yml
 │
-└── hardware/          # Hardware e Arduino
-    ├── Arduino/      # Codice ESP32 per sensori
-    │   ├── receiver/ # Firmware ricevitore (gateway MQTT)
-    │   ├── sender/   # Firmware trasmettitore (sensori)
-    │   └── HX711/    # Libreria celle di carico
-    ├── 3d-print/     # File CAD per stampa 3D (FreeCAD)
-    └── pcb/          # Schemi elettrici e documentazione
+└── meshbee-hardware/   # Hardware repository
+│   ├── 3d-print/     # File CAD per stampa 3D (FreeCAD)
+│   └── pcb/          # Schemi elettrici e documentazione
+│
+└── meshbee-hardware/   # Arduino ESP32 repository
+    ├── receiver/ # Firmware ricevitore (gateway MQTT)
+    ├── sender/   # Firmware trasmettitore (sensori)
+    └── HX711/    # Libreria celle di carico
 ```
+
+- [meshbee-app repository](https://github.com/fablab-imperia/meshbee-app)
+- [meshbee-server repository](https://github.com/fablab-imperia/meshbee-server)
+- [meshbee-hardware repository](https://github.com/fablab-imperia/meshbee-hardware)
+- [meshbee-firmware repository](https://github.com/fablab-imperia/meshbee-firmware)
+
+# Vecchia documentazione
 
 ## 🚀 Primo Avvio
 
@@ -319,7 +327,7 @@ Librerie: HX711, DHT, PubSubClient
 
 ## 📄 Licenza
 
-Questo progetto è distribuito sotto licenza GPLv3.
+Questo progetto è distribuito sotto licenza CERN-OHL-S.
 
 ## 👥 Team
 
