@@ -1,38 +1,61 @@
 ---
-title: Home
+title: MeshBee
+hide:
+  - navigation
+  - toc
 ---
 
-# MeshBee
+<div class="mb-hero" markdown>
 
-Solar-powered ESP32 nodes sit in beehives and report sensor readings — temperature, humidity,
-hive weight, battery voltage — over **MQTT** to a **FastAPI + Postgres** backend. An **Expo**
-app reads that data back over HTTP.
+![MeshBee](/meshbee/assets/logo.svg){ .mb-hero-logo }
 
-!!! warning "The data path is MQTT over WiFi, not Meshtastic"
+# Open beehive telemetry {.mb-hero-title}
 
-    Despite the name, MeshBee does not use Meshtastic or LoRa mesh networking. Nodes connect
-    to WiFi and publish to an MQTT broker. The name is historical.
+Solar ESP32 nodes in the hive, reporting temperature, humidity, weight and battery
+over a Meshtastic mesh to a FastAPI backend — and back out to your phone.
+{ .mb-hero-lead }
 
-## The four repositories
+[Read the docs](overview.md){ .md-button .md-button--primary }
+[The contract](contract/index.md){ .md-button }
 
-Each component is developed and released independently. Nothing here is a monorepo.
+Developed by [Fablab Imperia APS](https://www.fablabimperia.org).
+{ .mb-hero-byline }
 
-| Repository | What it is |
-| --- | --- |
-| [`meshbee-firmware`](https://github.com/fablab-imperia/meshbee-firmware) | ESP32 node firmware — reads sensors, publishes MQTT |
-| [`meshbee-server`](https://github.com/fablab-imperia/meshbee-server) | FastAPI backend, MQTT handler, Postgres |
-| [`meshbee-app`](https://github.com/fablab-imperia/meshbee-app) | Expo mobile app |
-| [`meshbee-hardware`](https://github.com/fablab-imperia/meshbee-hardware) | Boards, enclosures, 3D-printable parts |
+</div>
 
-What holds them together is not a shared build — it's a **versioned contract**: the MQTT payload
-schema and the HTTP API. Both are published on this site at stable URLs, so a component can ship
-on its own schedule without breaking the others.
+<div class="grid cards" markdown>
 
-## Start here
+-   **Four repos, one contract**
 
-- **[Architecture](architecture.md)** — how a reading gets from a hive to the app, and why it's
-  built this way.
-- **[The contract](contract/index.md)** — the MQTT payload, the API reference, and which versions
-  are known to work together.
-- **[Roadmap](roadmap.md)** — what's being worked on now.
-- **[Get involved](contribute.md)** — this is a volunteer project and it's all in the open.
+    ---
+
+    Firmware, server, app and hardware ship on their own schedules. What holds them
+    together is a versioned MQTT payload schema and HTTP API, published here at stable URLs.
+
+    [:octicons-arrow-right-24: How it fits together](architecture.md)
+
+-   **The versioned contract**
+
+    ---
+
+    The MQTT payload schema, the API reference rendered from OpenAPI, and the matrix of
+    which component versions are known to work together.
+
+    [:octicons-arrow-right-24: Read the contract](contract/index.md)
+
+-   **Built in the open**
+
+    ---
+
+    MeshBee is a volunteer project at Fablab Imperia APS. The boards, the enclosures, the
+    code and these docs are all public, and the roadmap is a public board.
+
+    [:octicons-arrow-right-24: Get involved](contribute.md)
+
+</div>
+
+!!! info "How a reading travels"
+
+    Hive nodes talk to each other over a **Meshtastic** LoRa mesh — no WiFi needed in the
+    apiary. A reading hops across the mesh until it reaches a node with internet access, which
+    acts as the gateway and forwards it over the internet to the **MQTT** broker.

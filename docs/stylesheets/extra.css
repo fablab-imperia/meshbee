@@ -1,2 +1,125 @@
+/* Brand — taken from the logo: dark navy shapes on mint green.
+   Mint is 1.5:1 against white, so it can never carry text on a light
+   background; it is a dark-mode / on-navy color only. Light mode uses a
+   darkened green (5.4:1 on white) for links. */
+:root {
+  --mb-navy: #2C2D3C;
+  --mb-mint: #67EA94;
+  --mb-green-deep: #0B7A3E;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        var(--mb-navy);
+  --md-primary-fg-color--light: #3d3f52;
+  --md-primary-fg-color--dark:  #1b1c26;
+  --md-primary-bg-color:        #ffffff;
+  --md-primary-bg-color--light: rgba(255, 255, 255, 0.7);
+
+  --md-accent-fg-color:         var(--mb-green-deep);
+  --md-accent-fg-color--transparent: rgba(11, 122, 62, 0.1);
+  --md-typeset-a-color:         var(--mb-green-deep);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        var(--mb-navy);
+  --md-primary-fg-color--light: #3d3f52;
+  --md-primary-fg-color--dark:  #1b1c26;
+  --md-primary-bg-color:        #ffffff;
+  --md-primary-bg-color--light: rgba(255, 255, 255, 0.7);
+
+  /* mint is 10.6:1 on the slate background — safe here, unlike light mode */
+  --md-accent-fg-color:         var(--mb-mint);
+  --md-accent-fg-color--transparent: rgba(103, 234, 148, 0.1);
+  --md-typeset-a-color:         var(--mb-mint);
+}
+
+/* The logo is a filled square; round it so it reads as a mark, not a tile */
+.md-header__button.md-logo img {
+  border-radius: 4px;
+}
+
 .scalar-app { min-height: 80vh; }
 body[data-md-page="contract-api"] .md-grid { max-width: 100%; }
+
+/* Landing hero — index.md / index.it.md only */
+.mb-hero {
+  padding: 3.5rem 0 2.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  margin-bottom: 2.5rem;
+}
+
+.mb-hero-logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 16px;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+
+/* Must be scoped under .md-typeset: the theme's `.md-typeset h1` is (0,1,1)
+   and beats a bare class, silently dropping font-size, weight and — because
+   it sets `margin:0 0 1.25em` — the auto margins that center the box.
+   max-width caps the measure so a long headline can't span a wide screen. */
+.md-typeset .mb-hero-title {
+  font-size: 2.6rem;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+  max-width: 18em;
+  margin: 0 auto 0.8rem;
+}
+
+.md-typeset .mb-hero-lead {
+  font-size: 0.95rem;
+  color: var(--md-default-fg-color--light);
+  max-width: 34em;
+  margin: 0 auto 2rem;
+}
+
+/* Byline sits under the buttons; the theme's `.md-typeset p` would leave it
+   flush against them and at body size. */
+.md-typeset .mb-hero-byline {
+  font-size: 0.7rem;
+  color: var(--md-default-fg-color--light);
+  margin: 1.5rem auto 0;
+}
+
+/* Secondary button: the theme sets `color: var(--md-primary-fg-color)` and a
+   borderless `border: .1rem solid`, so the border follows currentColor too.
+   With primary = navy that lands at 1.2:1 on the slate background — invisible.
+   The neutral fg tracks the scheme instead: 16:1 light, 8.9:1 dark. */
+.md-typeset .mb-hero .md-button:not(.md-button--primary) {
+  color: var(--md-default-fg-color);
+  border-color: var(--md-default-fg-color);
+}
+
+.md-typeset .mb-hero .md-button:not(.md-button--primary):is(:hover, :focus) {
+  background-color: var(--md-accent-fg-color);
+  border-color: var(--md-accent-fg-color);
+  color: var(--md-default-bg-color);
+}
+
+/* Primary button: mint fill + navy text, matching the logo's own composition
+   (8.9:1). The theme default would put white on the accent color. */
+.md-typeset .mb-hero .md-button--primary {
+  background-color: var(--mb-mint);
+  border-color: var(--mb-mint);
+  color: var(--mb-navy);
+}
+
+.md-typeset .mb-hero .md-button--primary:is(:hover, :focus) {
+  background-color: var(--mb-navy);
+  border-color: var(--mb-navy);
+  color: var(--mb-mint);
+}
+
+.mb-hero .md-button + .md-button { margin-left: 0.5rem; }
+
+@media screen and (max-width: 44.9em) {
+  .mb-hero { padding: 2rem 0 1.5rem; }
+  .md-typeset .mb-hero-title { font-size: 1.9rem; }
+  .mb-hero-logo { width: 72px; height: 72px; }
+  .mb-hero .md-button { display: block; margin: 0.5rem auto; max-width: 16em; }
+  .mb-hero .md-button + .md-button { margin-left: auto; }
+}

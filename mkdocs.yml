@@ -10,6 +10,10 @@ edit_uri: edit/main/docs/
 theme:
   name: material
   language: en                # overridden per-locale by the i18n plugin
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  icon:
+    alternate: material/web    # reads as "language", unlike the default translate glyph
   features:
     - navigation.sections
     - navigation.top
@@ -19,16 +23,16 @@ theme:
     - search.suggest
     - search.highlight
     - toc.follow
-  palette:
+  palette:                      # brand colors are defined in stylesheets/extra.css
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: amber
-      accent: amber
+      primary: custom
+      accent: custom
       toggle: { icon: material/weather-sunny, name: Switch to dark mode }
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: amber
-      accent: amber
+      primary: custom
+      accent: custom
       toggle: { icon: material/weather-night, name: Switch to light mode }
 
 extra_css:
@@ -40,11 +44,11 @@ plugins:
       docs_structure: suffix          # matches the .it.md convention
       languages:
         - locale: en
-          name: English
+          name: 🇬🇧 English
           default: true
           build: true
         - locale: it
-          name: Italiano
+          name: 🇮🇹 Italiano
           build: true
           nav_translations:
             Home: Home
@@ -67,9 +71,13 @@ markdown_extensions:
   - pymdownx.highlight: { anchor_linenums: true }
   - pymdownx.superfences
   - pymdownx.details
+  - pymdownx.emoji:                 # icons in the landing-page cards
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 nav:
   - Home: index.md
+  - Overview: overview.md
   - Architecture: architecture.md
   - Roadmap: roadmap.md
   - Contract:
