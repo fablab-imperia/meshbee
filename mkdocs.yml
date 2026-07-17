@@ -61,6 +61,8 @@ plugins:
             Compatibility matrix: Matrice di compatibilità
             Decisions (ADRs): Decisioni (ADR)
             Get involved: Partecipa
+            Contribute: Contribuisci
+            Build & preview the docs: Build e anteprima
 
 markdown_extensions:
   - admonition
@@ -88,4 +90,6 @@ nav:
   - Decisions (ADRs):
       - adr/index.md
       - adr/0001-record-architecture-decisions.md
-  - Get involved: contribute.md
+  - Get involved:
+      - Contribute: contribute.md
+      - Build & preview the docs: develop.md

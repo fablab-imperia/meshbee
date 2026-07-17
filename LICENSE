@@ -1,28 +1,3 @@
-MeshBee — licensing scope
-=========================
-
-This is the MeshBee umbrella repository. It is documentation-first.
-
-- Documentation and other content (everything under docs/, README, and
-  prose in this repo) is licensed under Creative Commons
-  Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) — the full text
-  of which follows below.
-
-- Scripts and development configuration (scripts/ and .devcontainer/) are
-  licensed under GNU General Public License v3.0 — see LICENSE-CODE. They
-  are kept GPL-3.0 to stay license-compatible with the MeshBee code repos
-  they serve.
-
-- The machine-readable interface contract (docs/contract/ — OpenAPI and
-  MQTT schema) is licensed under Apache License 2.0 — see
-  docs/contract/LICENSE — so downstream implementers can generate clients
-  freely without share-alike obligations.
-
-- Hardware designs are NOT in this repo; they live in the meshbee-hardware
-  repository and are licensed there (CERN-OHL-S v2).
-
------------------------------------------------------------------------
-
 Attribution-ShareAlike 4.0 International
 
 =======================================================================
