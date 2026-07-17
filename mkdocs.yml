@@ -1,0 +1,83 @@
+site_name: MeshBee
+site_description: Solar ESP32 hives → MQTT → FastAPI → app. Docs, architecture, and the versioned contract.
+site_url: https://fablab-imperia.github.io/meshbee/
+copyright: © Fablab Imperia APS — content CC-BY-SA, code GPL-3.0, hardware CERN-OHL-S
+
+repo_url: https://github.com/fablab-imperia/meshbee
+repo_name: fablab-imperia/meshbee
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en                # overridden per-locale by the i18n plugin
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - content.action.edit
+    - search.suggest
+    - search.highlight
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: amber
+      accent: amber
+      toggle: { icon: material/weather-sunny, name: Switch to dark mode }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: amber
+      accent: amber
+      toggle: { icon: material/weather-night, name: Switch to light mode }
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix          # matches the .it.md convention
+      languages:
+        - locale: en
+          name: English
+          default: true
+          build: true
+        - locale: it
+          name: Italiano
+          build: true
+          nav_translations:
+            Home: Home
+            Architecture: Architettura
+            Roadmap: Roadmap
+            Contract: Contratto
+            Overview: Panoramica
+            API reference: Riferimento API
+            MQTT payload: Payload MQTT
+            Compatibility matrix: Matrice di compatibilità
+            Decisions (ADRs): Decisioni (ADR)
+            Get involved: Partecipa
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc: { permalink: true }
+  - pymdownx.highlight: { anchor_linenums: true }
+  - pymdownx.superfences
+  - pymdownx.details
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Roadmap: roadmap.md
+  - Contract:
+      - Overview: contract/index.md
+      - API reference: contract/api.md
+      - MQTT payload: contract/mqtt-payload.md
+      - Compatibility matrix: contract/compatibility.md
+  - Decisions (ADRs):
+      - adr/index.md
+      - adr/0001-record-architecture-decisions.md
+  - Get involved: contribute.md

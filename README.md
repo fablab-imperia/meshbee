@@ -336,3 +336,30 @@ Sviluppato per apicoltori e monitoraggio ambientale.
 ---
 
 **Fatto con ❤️ per le api** 🐝
+
+---
+
+## 📚 Documentazione
+
+La documentazione del progetto — architettura, roadmap e il contratto versionato (payload MQTT,
+riferimento API, matrice di compatibilità) — è pubblicata su:
+
+**<https://fablab-imperia.github.io/meshbee/>**
+
+I sorgenti stanno in `docs/` in questo repository, ed è un sito
+[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) bilingue (inglese canonico +
+italiano con suffisso `.it.md`).
+
+### Anteprima locale
+
+```bash
+pip install -r requirements-docs.txt
+mkdocs serve      # http://127.0.0.1:8000
+```
+
+### Deploy
+
+Ogni push su `main` che tocca `docs/`, `mkdocs.yml`, `requirements-docs.txt` o `scripts/`
+attiva il workflow `.github/workflows/docs.yml`, che costruisce il sito con `mkdocs build
+--strict` e lo pubblica su GitHub Pages. Ogni pagina deve essere elencata in `nav` dentro
+`mkdocs.yml`, altrimenti la build fallisce.
