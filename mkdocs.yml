@@ -1,7 +1,7 @@
 site_name: MeshBee
 site_description: Solar ESP32 hives → MQTT → FastAPI → app. Docs, architecture, and the versioned contract.
 site_url: https://fablab-imperia.github.io/meshbee/
-copyright: © Fablab Imperia APS — content CC-BY-SA, code GPL-3.0, hardware CERN-OHL-S
+copyright: © Fablab Imperia APS — content CC BY-SA 4.0, code GPL-3.0, hardware CERN-OHL-S v2
 
 repo_url: https://github.com/fablab-imperia/meshbee
 repo_name: fablab-imperia/meshbee

@@ -46,8 +46,9 @@ stanno nel repository `.github` dell'organizzazione e valgono per ogni repositor
 ## Licenze
 
 - **Codice** — GPL-3.0
-- **Progetti hardware** — CERN-OHL-S
-- **Documentazione e altri contenuti** — CC-BY-SA
+- **Progetti hardware** — CERN-OHL-S v2
+- **Documentazione e altri contenuti** — CC BY-SA 4.0
+- **Contratto di interfaccia** (`docs/contract/` — OpenAPI e schema MQTT) — Apache-2.0
 
 ## Lavorare su questo sito
 

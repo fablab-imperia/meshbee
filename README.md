@@ -327,7 +327,13 @@ Librerie: HX711, DHT, PubSubClient
 
 ## 📄 Licenza
 
-Questo progetto è distribuito sotto licenza CERN-OHL-S.
+Questo è il repository *umbrella* di MeshBee, prevalentemente documentazione. Le licenze
+seguono i contenuti effettivi:
+
+- **Documentazione e altri contenuti** (`docs/`, README) — CC BY-SA 4.0 (vedi `LICENSE`)
+- **Script e configurazione di sviluppo** (`scripts/`, `.devcontainer/`) — GPL-3.0 (vedi `LICENSE-CODE`)
+- **Contratto di interfaccia** (`docs/contract/` — OpenAPI e schema MQTT) — Apache-2.0 (vedi `docs/contract/LICENSE`)
+- **Progetti hardware** — CERN-OHL-S v2, nel repository [meshbee-hardware](https://github.com/fablab-imperia/meshbee-hardware)
 
 ## 👥 Team
 

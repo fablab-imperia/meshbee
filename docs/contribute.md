@@ -44,8 +44,9 @@ the org `.github` repo and apply to every MeshBee repository.
 ## Licensing
 
 - **Code** — GPL-3.0
-- **Hardware designs** — CERN-OHL-S
-- **Documentation and other content** — CC-BY-SA
+- **Hardware designs** — CERN-OHL-S v2
+- **Documentation and other content** — CC BY-SA 4.0
+- **Interface contract** (`docs/contract/` — OpenAPI and MQTT schema) — Apache-2.0
 
 ## Working on this site
 
