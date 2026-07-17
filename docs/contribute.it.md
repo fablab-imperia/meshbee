@@ -54,9 +54,106 @@ stanno nel repository `.github` dell'organizzazione e valgono per ogni repositor
 Il sito usa [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) ed è costruito
 dalla cartella `docs/` di questo repository.
 
+**Da terminale, con Docker Compose** — senza usare nessun editor:
+
+```bash
+docker compose -f .devcontainer/compose.yaml up -d --build
+```
+
+Tutto qui: un solo comando avvia tutto, e `mkdocs serve` è il comando predefinito del servizio
+docs. Apri <http://localhost:8000/meshbee/>, oppure <https://localhost:8443/meshbee/> dopo aver
+generato i certificati (vedi [HTTPS in locale](#https-in-locale): senza certificati l'HTTP
+funziona lo stesso). Le modifiche fatte sulla tua macchina si ricaricano subito: il repository è
+montato in bind, non viene copiato dentro l'immagine. Per seguire l'output o fermare tutto:
+
+```bash
+docker compose -f .devcontainer/compose.yaml logs -f docs
+docker compose -f .devcontainer/compose.yaml down
+```
+
+Due cose da sapere:
+
+- Se la porta 8000 sull'host è occupata, usa `DOCS_PORT`. Mettilo davanti a ogni comando compose:
+  viene letto quando il container viene creato, quindi serve sia a `up` sia a `down`:
+
+    ```bash
+    DOCS_PORT=8001 docker compose -f .devcontainer/compose.yaml up -d
+    ```
+
+- **Un errore di configurazione fa uscire il container**, perché `mkdocs serve` è il suo processo
+  principale. È voluto: un serve morto non deve sembrare sano. `logs docs` mostra il motivo
+  (indica la riga incriminata) e puoi comunque aprire una shell per sistemare:
+
+    ```bash
+    docker compose -f .devcontainer/compose.yaml run --rm docs bash
+    ```
+
+### HTTPS in locale
+
+GitHub Pages serve in HTTPS. `mkdocs serve` funziona solo in HTTP e non ha opzioni TLS, quindi
+per avere le stesse condizioni della produzione — e scoprire prima problemi di contenuto misto o
+di URL assoluti — un proxy [Caddy](https://caddyserver.com) opzionale termina il TLS davanti.
+
+Serve [mkcert](https://github.com/FiloSottile/mkcert) (`brew install mkcert`), che emette un
+certificato da una CA presente nel trust store del sistema: è questo che rende il lucchetto vero
+invece di un avviso da saltare. Una volta sola:
+
+```bash
+./.devcontainer/make-certs.sh
+```
+
+Poi il solito `up -d` serve anche in HTTPS, senza flag aggiuntivi:
+
+```bash
+docker compose -f .devcontainer/compose.yaml up -d
+```
+
+Apri <https://localhost:8443/meshbee/>. Il live reload continua a funzionare: Caddy inoltra il
+WebSocket in modo trasparente. Con `HTTPS_PORT` cambi la porta se la 8443 è occupata.
+
+Senza certificati il proxy spiega come generarli ed esce, e l'HTTP continua a funzionare
+normalmente: un clone appena fatto non richiede alcuna configurazione finché non vuoi il TLS.
+`down` ferma il proxy insieme a tutto il resto.
+
+!!! note "I certificati sono chiavi private"
+
+    `.devcontainer/certs/` è nel gitignore. Non committarlo mai. Ogni persona genera i propri: una
+    chiave di sviluppo condivisa è una chiave compromessa.
+
+Altri comandi utili:
+
+```bash
+# build identica a quella della CI
+docker compose -f .devcontainer/compose.yaml exec docs mkdocs build --strict
+
+# scarica gli artefatti reali del contratto (serve GH_TOKEN; altrimenti usa i placeholder)
+docker compose -f .devcontainer/compose.yaml exec docs bash scripts/fetch-contract-artifacts.sh
+```
+
+**Con VS Code** — *Reopen in Container* usa lo stesso file compose, quindi le due strade non
+possono divergere. VS Code sostituisce il comando predefinito con un keepalive
+(`overrideCommand`), così un crash del serve non si porta via la sessione dell'editor: avvia tu
+il server da un terminale di VS Code:
+
+```bash
+mkdocs serve -a 0.0.0.0:8000
+```
+
+Dentro un container `-a 0.0.0.0:8000` è obbligatorio: altrimenti MkDocs ascolta sul loopback del
+container, che il tuo browser non raggiunge. La porta 8000 viene inoltrata da sola.
+
+**Senza container:**
+
 ```bash
 pip install -r requirements-docs.txt
 mkdocs serve
+```
+
+Prima di fare push, controlla la build come fa la CI: una pagina non elencata o un link rotto
+fallisce lì, non con `serve`:
+
+```bash
+mkdocs build --strict
 ```
 
 Le pagine italiane usano il suffisso `.it.md` accanto alla controparte inglese (`roadmap.md` →

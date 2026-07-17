@@ -241,3 +241,6 @@ __marimo__/
 # MkDocs docs site
 site/
 .cache/
+
+# Local HTTPS dev certs (private keys — never commit)
+.devcontainer/certs/

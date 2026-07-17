@@ -1,0 +1,18 @@
+# TLS terminator in front of `mkdocs serve`, which is HTTP-only.
+# Purpose is parity with GitHub Pages (HTTPS) so mixed-content and
+# absolute-URL problems surface locally instead of after deploy.
+{
+	# Caddy's own ACME/internal issuance would produce a cert the browser
+	# doesn't trust. We mount an mkcert-issued cert instead — mkcert's CA is
+	# already in the system trust store, so the padlock is real and green.
+	auto_https off
+	admin off
+}
+
+:8443 {
+	tls /certs/localhost.pem /certs/localhost-key.pem
+
+	# reverse_proxy upgrades WebSockets transparently, which mkdocs'
+	# livereload needs — without it, edits would stop auto-refreshing.
+	reverse_proxy docs:8000
+}

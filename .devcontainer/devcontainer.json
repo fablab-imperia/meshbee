@@ -1,0 +1,49 @@
+{
+  "name": "MeshBee docs",
+
+  // Same compose file you'd use from a terminal, so VS Code and
+  // `docker compose` can't drift apart. gh and the docs dependencies are
+  // baked into .devcontainer/Dockerfile rather than pulled in as features —
+  // features are applied by VS Code / the devcontainer CLI only, and a plain
+  // `docker compose` run would silently miss them.
+  "dockerComposeFile": "compose.yaml",
+  "service": "docs",
+  "workspaceFolder": "/workspaces/meshbee",
+
+  // The compose default command runs `mkdocs serve`, which is what you want
+  // from a terminal but not here: if serve died on a config error the
+  // container would exit and take the editor session with it. Swap it for a
+  // keepalive and start serve yourself in a VS Code terminal.
+  "overrideCommand": true,
+
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "mkdocs serve",
+      "onAutoForward": "openBrowser"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.vscode-yaml",
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint"
+      ],
+      "settings": {
+        "yaml.schemas": {
+          "https://squidfunk.github.io/mkdocs-material/schema.json": "mkdocs.yml"
+        },
+        "yaml.customTags": [
+          "!ENV scalar",
+          "!ENV sequence",
+          "!relative scalar",
+          "tag:yaml.org,2002:python/name:material.extensions.emoji.to_svg",
+          "tag:yaml.org,2002:python/name:material.extensions.emoji.twemoji",
+          "tag:yaml.org,2002:python/name:pymdownx.superfences.fence_code_format"
+        ]
+      }
+    }
+  }
+}
