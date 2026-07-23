@@ -9,7 +9,7 @@ theoretically work.
 
 | Release | Firmware | Server | App | MQTT | API |
 | --- | --- | --- | --- | --- | --- |
-| `v0.2` "Field Trial" | 1.4.x | 2.1.x | 1.8.x | `v1` | `v1` |
+| `v0.2` "Field Trial" | 1.4.x | 1.x.x | 1.8.x | `v1` | `v1` |
 
 !!! warning "Append rows. Never edit a shipped one."
 
