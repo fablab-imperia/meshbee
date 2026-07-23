@@ -39,6 +39,15 @@ Per l'anteprima o la build del sito della documentazione in locale, vedi
 **[Build e anteprima della documentazione](https://fablab-imperia.github.io/meshbee/it/develop/)**
 ([sorgente](docs/develop.it.md)).
 
+## Versioning
+
+Releases follow [![SemVer 2.0.0](https://img.shields.io/badge/SemVer-2.0.0-blue.svg)](https://semver.org/spec/v2.0.0.html).
+
+Commits follow [![Conventional Commits 1.0.0](https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg)](https://www.conventionalcommits.org/en/v1.0.0/).
+
+See [CONTRIBUTING](https://github.com/fablab-imperia/.github/blob/main/CONTRIBUTING.md)
+and the [compatibility matrix](https://fablab-imperia.github.io/meshbee/it/contract/compatibility/).
+
 ---
 
 Fatto con ❤️ per le api 🐝

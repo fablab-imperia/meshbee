@@ -36,6 +36,54 @@ Il [Codice di Condotta](https://github.com/fablab-imperia/.github/blob/main/CODE
 la [guida per contribuire](https://github.com/fablab-imperia/.github/blob/main/CONTRIBUTING.md)
 stanno nel repository `.github` dell'organizzazione e valgono per ogni repository MeshBee.
 
+## Messaggi di commit e versioning
+
+Ogni repository MeshBee segue i
+[Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) per i messaggi di
+commit e il [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) per i rilasci. La
+policy completa sta nella
+[guida per contribuire](https://github.com/fablab-imperia/.github/blob/main/CONTRIBUTING.md#commit-messages-and-versioning)
+dell'organizzazione; qui sotto la versione breve.
+
+### Conventional Commits
+
+Ogni messaggio inizia con un **tipo**, uno **scope** facoltativo e poi una breve descrizione (i
+messaggi di commit sono in inglese):
+
+```
+feat(sensor): add null-read fallback
+fix: correct temperature offset
+docs(readme): document build steps
+```
+
+| Tipo | Quando usarlo |
+|---|---|
+| `feat` | nuova funzionalità per gli utenti |
+| `fix` | correzione di un bug |
+| `docs` | modifiche solo alla documentazione |
+| `style` | formattazione, nessun cambio di comportamento |
+| `refactor` | modifica al codice che non corregge bug né aggiunge funzionalità |
+| `perf` | miglioramento delle prestazioni |
+| `test` | aggiunta o modifica di test |
+| `build` | modifiche al sistema di build o alle dipendenze |
+| `ci` | configurazione dell'integrazione continua |
+| `chore` | manutenzione fuori da sorgenti o test |
+| `revert` | annulla un commit precedente |
+
+I breaking change si segnalano con un `!` dopo il tipo/scope (`feat!:`) oppure con un footer
+`BREAKING CHANGE:`.
+
+### Semantic Versioning
+
+I rilasci hanno numero `MAJOR.MINOR.PATCH`:
+
+- **MAJOR** — modifiche incompatibili
+- **MINOR** — nuove funzionalità retrocompatibili
+- **PATCH** — correzioni di bug retrocompatibili
+
+La [matrice di compatibilità](contract/compatibility.md) indica quali versioni dei componenti
+funzionano insieme.
+
 ## Come contattarci
 
 - **Domande, idee, "è un bug?"** → [Discussions](https://github.com/fablab-imperia/meshbee/discussions).

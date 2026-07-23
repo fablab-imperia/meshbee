@@ -35,6 +35,53 @@ The [Code of Conduct](https://github.com/fablab-imperia/.github/blob/main/CODE_O
 [Contributing guide](https://github.com/fablab-imperia/.github/blob/main/CONTRIBUTING.md) live in
 the org `.github` repo and apply to every MeshBee repository.
 
+## Commit messages and versioning
+
+Every MeshBee repository follows
+[Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages
+and [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html) for releases. The full policy
+lives in the org
+[Contributing guide](https://github.com/fablab-imperia/.github/blob/main/CONTRIBUTING.md#commit-messages-and-versioning);
+the short version is below.
+
+### Conventional Commits
+
+Each message starts with a **type**, an optional **scope**, then a short description:
+
+```
+feat(sensor): add null-read fallback
+fix: correct temperature offset
+docs(readme): document build steps
+```
+
+| Type | When to use it |
+|---|---|
+| `feat` | new functionality for end users |
+| `fix` | a bug fix |
+| `docs` | documentation-only changes |
+| `style` | formatting, no behavior change |
+| `refactor` | code change that neither fixes a bug nor adds a feature |
+| `perf` | performance improvement |
+| `test` | adding or updating tests |
+| `build` | build system or dependency changes |
+| `ci` | continuous-integration configuration |
+| `chore` | maintenance outside source or tests |
+| `revert` | reverts a previous commit |
+
+Breaking changes are flagged with a `!` after the type/scope (`feat!:`) or a `BREAKING CHANGE:`
+footer.
+
+### Semantic Versioning
+
+Releases are numbered `MAJOR.MINOR.PATCH`:
+
+- **MAJOR** — incompatible changes
+- **MINOR** — backward-compatible new features
+- **PATCH** — backward-compatible bug fixes
+
+The [compatibility matrix](contract/compatibility.md) tracks which component versions work
+together.
+
 ## Getting in touch
 
 - **Questions, ideas, "is this a bug?"** → [Discussions](https://github.com/fablab-imperia/meshbee/discussions).
