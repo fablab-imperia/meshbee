@@ -31,10 +31,16 @@ Ciò che tiene insieme il tutto non è una build condivisa, ma un **contratto ve
 schema del payload MQTT e l'API HTTP. Entrambi sono pubblicati su questo sito a URL stabili, così
 ogni componente può essere rilasciato secondo i propri tempi senza rompere gli altri.
 
+Il sistema si divide in tre aree — l'**arnia**, il **server** e l'**app** — e `meshbee-server` è a
+sua volta tre pezzi: il percorso di ingest MQTT, l'API REST e la libreria core condivisa con il suo
+database. Ognuno ha una pagina breve nella sezione **[Componenti](components/index.md)**.
+
 ## Da dove iniziare
 
 - **[Architettura](architecture.md)** — come una lettura arriva dall'arnia all'app, e perché è
   costruita così.
+- **[Componenti](components/index.md)** — un riassunto breve di ogni pezzo del sistema e dove sta
+  la sua documentazione completa.
 - **[Il contratto](contract/index.md)** — il payload MQTT, il riferimento API e quali versioni
   funzionano insieme.
 - **[Roadmap](roadmap.md)** — su cosa stiamo lavorando adesso.

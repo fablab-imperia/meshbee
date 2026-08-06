@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Fetch generated contract artifacts from the latest meshbee-server release.
-# Safe before that repo has releases: on any failure, keep the committed placeholders.
+# On any failure, keep the copy committed here — the fetch must never fail the docs build.
+#
+# openapi.json is NOT fetched: the API reference page reads it live from meshbee-server's
+# main branch in the browser, so this repo keeps no copy of it at all.
 set -uo pipefail
 
 SERVER_REPO="fablab-imperia/meshbee-server"
@@ -13,10 +16,10 @@ fetch() {  # fetch <asset-pattern> <dest-filename>
        --output "$DEST/$out" --clobber 2>/dev/null; then
     echo "  ✓ fetched $out from release"
   else
-    echo "  · no release asset yet — keeping committed placeholder $DEST/$out"
+    echo "  · no release asset yet — keeping the copy committed at $DEST/$out"
   fi
 }
 
-fetch "openapi.json"             "openapi.json"
+# Hand-maintained here until meshbee-server generates one; see docs/contract/index.md.
 fetch "mqtt-payload.schema.json" "mqtt-payload.schema.json"
 echo "done."

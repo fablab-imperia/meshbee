@@ -1,40 +1,46 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fablab-imperia.github.io/meshbee/contract/mqtt-payload.schema.json",
-  "title": "MeshBee MQTT payload (placeholder)",
-  "description": "Placeholder fallback. The authoritative schema is published by meshbee-server and fetched from its latest release at docs build time.",
+  "title": "MeshBee MQTT payload",
+  "description": "One reading published by a node to beehive/<id_nodo>/data. Maintained by hand in the meshbee umbrella repository until meshbee-server generates it, mirroring what mqtt_handler/payload.py accepts. No field carries a payload version yet; see the contract docs for the planned versioning scheme.",
   "type": "object",
-  "required": ["v", "id"],
   "properties": {
-    "v": {
-      "type": "integer",
-      "minimum": 1,
-      "description": "Payload major version. The server decides compatibility per message from this integer."
-    },
-    "id": {
+    "id_nodo": {
       "type": "string",
-      "description": "Node identifier, e.g. \"hive-03\"."
+      "maxLength": 50,
+      "description": "Node identifier. Optional in the body: it falls back to the <id_nodo> segment of the topic, and the body wins when both are present. A message is rejected only when neither supplies one."
     },
-    "t": {
-      "type": "number",
-      "description": "Temperature in °C."
+    "id_sensore": {
+      "type": "string",
+      "maxLength": 50,
+      "description": "Identifies the hive on that node. An unknown value provisions a new hive; when absent, the node's first hive is used."
     },
-    "rh": {
-      "type": "number",
-      "description": "Relative humidity in %."
-    },
-    "w": {
-      "type": "number",
-      "description": "Hive weight in grams."
-    },
-    "vbat": {
-      "type": "number",
-      "description": "Battery voltage in volts."
-    },
-    "ts": {
+    "timestamp": {
       "type": "string",
       "format": "date-time",
-      "description": "Reading timestamp (RFC 3339). Absent when the node has no clock sync; the server stamps arrival time instead."
+      "description": "Reading time, ISO 8601. A trailing Z is accepted. Absent or unparseable values fall back to server time."
+    },
+    "temperatura": {
+      "type": "number",
+      "minimum": -50,
+      "maximum": 100,
+      "description": "Temperature in °C. Out of range drops the whole message."
+    },
+    "umidita": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Relative humidity in %. Out of range drops the whole message."
+    },
+    "peso": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Hive weight in kg. Out of range drops the whole message."
+    },
+    "dati_raw": {
+      "type": "object",
+      "description": "Anything else the firmware wants to keep — battery voltage, RSSI, and so on. Stored verbatim as JSONB.",
+      "additionalProperties": true
     }
   },
   "additionalProperties": true
