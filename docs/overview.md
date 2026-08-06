@@ -30,10 +30,16 @@ What holds them together is not a shared build — it's a **versioned contract**
 schema and the HTTP API. Both are published on this site at stable URLs, so a component can ship
 on its own schedule without breaking the others.
 
+The system divides into three areas — the **hive**, the **server** and the **app** — and
+`meshbee-server` is itself three pieces: the MQTT ingest path, the REST API, and the shared core
+library with its database. Each gets a short page under **[Components](components/index.md)**.
+
 ## Start here
 
 - **[Architecture](architecture.md)** — how a reading gets from a hive to the app, and why it's
   built this way.
+- **[Components](components/index.md)** — a short summary of each piece of the system and where
+  its full documentation lives.
 - **[The contract](contract/index.md)** — the MQTT payload, the API reference, and which versions
   are known to work together.
 - **[Roadmap](roadmap.md)** — what's being worked on now.

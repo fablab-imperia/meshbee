@@ -53,13 +53,21 @@ plugins:
           nav_translations:
             Home: Home
             Architecture: Architettura
+            Components: Componenti
+            Hive: Arnia
+            Hardware: Hardware
+            Firmware: Firmware
+            Server: Server
+            MQTT: MQTT
+            API: API
+            Core & database: Core e database
+            App: App
             Roadmap: Roadmap
             Contract: Contratto
             Overview: Panoramica
             API reference: Riferimento API
             MQTT payload: Payload MQTT
             Compatibility matrix: Matrice di compatibilità
-            Decisions (ADRs): Decisioni (ADR)
             Get involved: Partecipa
             Contribute: Contribuisci
             Build & preview the docs: Build e anteprima
@@ -71,7 +79,11 @@ markdown_extensions:
   - tables
   - toc: { permalink: true }
   - pymdownx.highlight: { anchor_linenums: true }
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:                  # Material bundles Mermaid.js — no extra pip dependency
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.details
   - pymdownx.emoji:                 # icons in the landing-page cards
       emoji_index: !!python/name:material.extensions.emoji.twemoji
@@ -81,15 +93,22 @@ nav:
   - Home: index.md
   - Overview: overview.md
   - Architecture: architecture.md
+  - Components:
+      - Overview: components/index.md
+      - Hive:
+          - Hardware: components/hive/hardware.md
+          - Firmware: components/hive/firmware.md
+      - Server:
+          - MQTT: components/server/mqtt.md
+          - API: components/server/api.md
+          - Core & database: components/server/core.md
+      - App: components/app.md
   - Roadmap: roadmap.md
   - Contract:
       - Overview: contract/index.md
       - API reference: contract/api.md
       - MQTT payload: contract/mqtt-payload.md
       - Compatibility matrix: contract/compatibility.md
-  - Decisions (ADRs):
-      - adr/index.md
-      - adr/0001-record-architecture-decisions.md
   - Get involved:
       - Contribute: contribute.md
       - Build & preview the docs: develop.md

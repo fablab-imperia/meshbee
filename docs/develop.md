@@ -50,6 +50,9 @@ Every page must be listed in `nav` inside `mkdocs.yml`, otherwise the strict bui
 
 ## Deploy
 
-Deployment is automatic. Every push to `main` that touches `docs/`, `mkdocs.yml`,
-`requirements-docs.txt` or `scripts/` triggers the `.github/workflows/docs.yml` workflow, which
-builds the site with `mkdocs build --strict` and publishes it to GitHub Pages.
+Deployment is automatic. Every push to `main` that touches `docs/`, `mkdocs.yml` or
+`requirements-docs.txt` triggers the `.github/workflows/docs.yml` workflow, which builds the site
+with `mkdocs build --strict` and publishes it to GitHub Pages.
+
+A contract change upstream needs no deploy here — the artifacts are read from `meshbee-server`
+directly, so they are current the moment they land on its `main`.

@@ -171,10 +171,10 @@ Other useful one-offs:
 ```bash
 # build exactly as CI does
 docker compose -f .devcontainer/compose.yaml exec docs mkdocs build --strict
-
-# pull the real contract artifacts (needs GH_TOKEN; falls back to placeholders)
-docker compose -f .devcontainer/compose.yaml exec docs bash scripts/fetch-contract-artifacts.sh
 ```
+
+There is no artifact-fetching step: the contract artifacts are read from `meshbee-server` when a
+page loads, so a local build needs nothing from the network.
 
 **With VS Code** — *Reopen in Container* uses the same compose file, so the two can't drift. It
 replaces the default command with a keepalive (`overrideCommand`), so a serve crash can't take

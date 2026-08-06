@@ -17,8 +17,9 @@ services:
       # Container-side stays 8000 to match `mkdocs serve -a 0.0.0.0:8000`.
       - "${DOCS_PORT:-8000}:8000"
     environment:
-      # Consumed by scripts/fetch-contract-artifacts.sh via gh. Optional:
-      # with no token the fetch falls back to the committed placeholders.
+      # Nothing in the build needs this — the contract artifacts live upstream and
+      # are never fetched here. Kept because `gh` is on the image and a token makes
+      # it usable for issues and PRs from inside the container.
       GH_TOKEN: "${GH_TOKEN:-}"
     # `up -d` serves straight away — no second exec needed. 0.0.0.0 because the
     # default loopback bind would only be reachable from inside the container.

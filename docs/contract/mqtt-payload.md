@@ -4,34 +4,63 @@ title: MQTT payload
 
 # MQTT payload
 
-A node publishes one JSON object per reading.
+A node publishes one JSON object per reading, to the topic **`beehive/<id_nodo>/data`**.
 
 ```json
-{"v":1,"id":"hive-03","t":21.4,"rh":58.2,"w":34210,"vbat":3.91,"ts":"2026-07-17T09:14:00Z"}
+{
+  "id_sensore": "SENSOR01",
+  "timestamp": "2026-08-05T14:30:00Z",
+  "temperatura": 34.5,
+  "umidita": 65.2,
+  "peso": 42.35,
+  "dati_raw": {"battery": 3.7, "rssi": -67}
+}
 ```
 
-| Field | Type | Meaning |
-| --- | --- | --- |
-| `v` | integer | **Payload major version.** Required. |
-| `id` | string | Node identifier. Required. |
-| `t` | number | Temperature, °C |
-| `rh` | number | Relative humidity, % |
-| `w` | number | Hive weight, grams |
-| `vbat` | number | Battery voltage, V |
-| `ts` | string | Reading time, RFC 3339 |
+| Field | Type | Required | Meaning |
+| --- | --- | --- | --- |
+| `id_nodo` | string | see below | Node identifier, **max 50 chars**. Falls back to the topic segment. |
+| `id_sensore` | string | no | Identifies the hive on that node, **max 50 chars**. An unknown value creates one. |
+| `timestamp` | string | no | ISO 8601. Absent or unparseable → server time. |
+| `temperatura` | number | no | °C, **−50 to 100** |
+| `umidita` | number | no | %, **0 to 100** |
+| `peso` | number | no | kg, **≥ 0** |
+| `dati_raw` | object | no | Stored verbatim as JSONB — battery, RSSI, whatever the firmware keeps. |
 
-Only `v` and `id` are required. A node that has no weight cell simply omits `w`; a node with no
-clock sync omits `ts` and the server stamps arrival time. Keys are short because they're paid for
-on every transmission, from a battery, over WiFi.
+Every measurement is optional: a node carrying only a scale sends only `peso`. The payload must be
+a JSON **object** — an array, a bare number, invalid UTF-8 or malformed JSON is logged and dropped.
 
-## The version integer
+## Rules the handler applies
 
-`v` is the whole compatibility mechanism. The server reads it **first**, on every message, and
-decides what to do with the rest of the object based on what it says.
+- **The node id may come from either place, and the payload wins.** `id_nodo` in the body overrides
+  the topic segment. A message is rejected only when neither supplies one.
+- **A bad clock never costs a measurement.** A `Z` suffix is rewritten to `+00:00`; a value that
+  still will not parse is logged as a warning and the reading is stored with the **server's** time.
+- **The limits are enforced, and a violation drops the whole message.** A `temperatura` of 200 is
+  not stored partially — it is not stored at all, and the same goes for an id longer than 50
+  characters. The ranges exist as CHECK constraints in the database and the id length as
+  `VARCHAR(50)`, so a value that slipped past one would be refused by the other.
+- **A rejected reading is dropped, not retried.** The broker was acknowledged before the handler
+  read the payload. There is no dead-letter queue.
+
+Unknown nodes and unknown `id_sensore` values are **provisioned on the fly** rather than rejected —
+a node may start transmitting before anyone registers it. See the
+[MQTT handler](../components/server/mqtt.md).
+
+## Payload versioning
+
+!!! warning "Not implemented yet"
+
+    Everything in this section describes where the payload format is going. **Today the payload
+    carries no version field** — the handler reads the fixed set of fields above and has no way to
+    tell which firmware produced them.
+
+The plan is a required **major version integer** (`v`) that the server reads *first*, on every
+message, deciding what to do with the rest of the object based on what it says.
 
 This exists because the fleet is permanently heterogeneous — see
 [Architecture](../architecture.md). Nodes are solar-powered boards in fields; you cannot push an
-update to them and you cannot assume they'll ever be uniform. The message has to describe itself.
+update to them and you cannot assume they will ever be uniform. The message has to describe itself.
 
 The rule when the major version is one the server doesn't know:
 
@@ -52,12 +81,23 @@ sets `additionalProperties: true`.
 
 ## Schema
 
-The authoritative JSON Schema (draft 2020-12) is published at its canonical URL:
+The JSON Schema (draft 2020-12) lives in `meshbee-server` and is served raw off its `main` branch,
+which is its canonical URL:
 
-<https://fablab-imperia.github.io/meshbee/contract/mqtt-payload.schema.json>
+<https://raw.githubusercontent.com/fablab-imperia/meshbee-server/main/mqtt_handler/mqtt-payload.schema.json>
 
-Reference it by that absolute URL, not a relative path. It's the single real artifact, and it's
-what the schema's own `$id` points to.
+Reference it by that absolute URL. It's the single real artifact, and it's what the schema's own
+`$id` points to — so a `$ref` against it resolves to the same bytes your validator already
+fetched. The table above is prose for people; the schema is the normative artifact — where they
+disagree, the schema is right and the table is a bug.
+
+!!! note "Generated upstream, and read from there"
+
+    The schema is generated by `make mqtt-schema` from the pydantic model in
+    [`mqtt_handler/contract.py`](https://github.com/fablab-imperia/meshbee-server/blob/main/mqtt_handler/contract.py),
+    and **this site keeps no copy** — the link above goes to the generated file itself. Like the
+    [API reference](api.md) it therefore tracks `main`, not the latest release; the
+    [compatibility matrix](compatibility.md) is what records what a given release speaks.
 
 Which payload versions go with which component releases is recorded in the
 [compatibility matrix](compatibility.md).
