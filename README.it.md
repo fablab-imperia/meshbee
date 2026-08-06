@@ -29,7 +29,7 @@ hardware vivono nei propri repository e vengono rilasciati con tempi propri:
 MeshBee è prima di tutto documentazione, quindi le licenze seguono i contenuti:
 
 - **Documentazione e altri contenuti** (`docs/`, README) — CC BY-SA 4.0 · vedi [`LICENSE`](LICENSE)
-- **Script e configurazione di sviluppo** (`scripts/`, `.devcontainer/`) — GPL-3.0 · vedi [`LICENSE-CODE`](LICENSE-CODE) — mantenuti GPL-3.0 per restare compatibili con i repository di codice MeshBee che servono
+- **Configurazione di sviluppo** (`.devcontainer/`) — GPL-3.0 · vedi [`LICENSE-CODE`](LICENSE-CODE) — mantenuta GPL-3.0 per restare compatibile con i repository di codice MeshBee che serve
 - **Contratto di interfaccia** (`docs/contract/` — OpenAPI e schema MQTT) — Apache-2.0 · vedi [`docs/contract/LICENSE`](docs/contract/LICENSE) — così chi implementa a valle può generare client liberamente, senza obblighi di share-alike
 - **Progetti hardware** — CERN-OHL-S v2, nel repository [meshbee-hardware](https://github.com/fablab-imperia/meshbee-hardware)
 

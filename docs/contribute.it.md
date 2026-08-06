@@ -174,10 +174,10 @@ Altri comandi utili:
 ```bash
 # build identica a quella della CI
 docker compose -f .devcontainer/compose.yaml exec docs mkdocs build --strict
-
-# scarica gli artefatti reali del contratto (serve GH_TOKEN; altrimenti usa i placeholder)
-docker compose -f .devcontainer/compose.yaml exec docs bash scripts/fetch-contract-artifacts.sh
 ```
+
+Non c'è nessun passaggio di download degli artefatti: gli artefatti del contratto vengono letti da
+`meshbee-server` al caricamento della pagina, quindi una build locale non ha bisogno della rete.
 
 **Con VS Code** — *Reopen in Container* usa lo stesso file compose, quindi le due strade non
 possono divergere. VS Code sostituisce il comando predefinito con un keepalive

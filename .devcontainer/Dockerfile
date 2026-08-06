@@ -2,9 +2,9 @@
 # local previews and CI should never build on different interpreters.
 FROM mcr.microsoft.com/devcontainers/python:1-3.12-bookworm
 
-# gh is what scripts/fetch-contract-artifacts.sh uses to pull contract
-# artifacts from the latest meshbee-server release. Installed here rather
-# than as a devcontainer feature so `docker compose` gets it too.
+# gh, for working issues and PRs from inside the container. Installed here
+# rather than as a devcontainer feature so `docker compose` gets it too.
+# The docs build itself needs no network: contract artifacts live upstream.
 RUN set -eux; \
     # The base image ships a yarn apt repo whose signing key has rotated, which
     # fails `apt-get update` for every repo, not just yarn's. Nothing here needs

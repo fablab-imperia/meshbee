@@ -50,6 +50,9 @@ Ogni pagina deve essere elencata in `nav` dentro `mkdocs.yml`, altrimenti la bui
 
 ## Deploy
 
-Il deploy è automatico. Ogni push su `main` che tocca `docs/`, `mkdocs.yml`,
-`requirements-docs.txt` o `scripts/` attiva il workflow `.github/workflows/docs.yml`, che
-costruisce il sito con `mkdocs build --strict` e lo pubblica su GitHub Pages.
+Il deploy è automatico. Ogni push su `main` che tocca `docs/`, `mkdocs.yml` o
+`requirements-docs.txt` attiva il workflow `.github/workflows/docs.yml`, che costruisce il sito
+con `mkdocs build --strict` e lo pubblica su GitHub Pages.
+
+Una modifica al contratto a monte non richiede un deploy qui — gli artefatti vengono letti
+direttamente da `meshbee-server`, quindi sono aggiornati non appena arrivano sul suo `main`.
