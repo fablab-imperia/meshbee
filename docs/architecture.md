@@ -62,8 +62,6 @@ told, by the message itself. That gives us three intended consequences:
   versions are known to work together, because "it builds" and "it interoperates with what's
   already deployed" are different questions.
 
-None of this is speculative generality. It's the minimum needed to run a fleet you cannot recall.
-
 !!! warning "Design intent, not current behaviour"
 
     The first two points describe where the interface is going, not where it is. Today the payload
