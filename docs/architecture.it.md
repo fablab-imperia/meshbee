@@ -64,8 +64,6 @@ Glielo deve dire il messaggio stesso. Da qui tre conseguenze volute:
   firmware / server / app funzionano insieme, perché "compila" e "va d'accordo con ciò che è già
   installato sul campo" sono due domande diverse.
 
-Non è generalità speculativa: è il minimo necessario per gestire un parco che non puoi richiamare.
-
 !!! warning "Intenzione di progetto, non comportamento attuale"
 
     I primi due punti descrivono dove sta andando l'interfaccia, non dove si trova adesso. Oggi il
