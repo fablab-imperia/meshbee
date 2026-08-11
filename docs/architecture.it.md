@@ -34,7 +34,7 @@ flowchart TD
     CORE --> DB
 ```
 
-Due tratte, non una. I nodi arnia comunicano tra loro su una **mesh LoRa Meshtastic** — nell'apiario
+I nodi arnia comunicano tra loro su una **mesh LoRa Meshtastic** — nell'apiario
 non serve WiFi. Una lettura salta di nodo in nodo finché non raggiunge un nodo con accesso a
 internet, che fa da gateway e la inoltra al **broker MQTT** su una normale connessione internet.
 
