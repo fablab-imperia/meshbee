@@ -43,8 +43,7 @@ opzionale: in un `docker-compose up` semplice l'app parla direttamente con `api`
 
 ## Perché è costruita così
 
-Il ragionamento che guida gran parte del progetto: **il parco nodi è eterogeneo in modo
-permanente.**
+Il ragionamento che guida gran parte del progetto: **il parco nodi è eterogeneo.**
 
 Un nodo è una scheda fissata a un pannello solare in un campo. Non esiste un modo affidabile per
 inviargli un aggiornamento. Alcuni nodi continueranno a usare il firmware dell'anno scorso
