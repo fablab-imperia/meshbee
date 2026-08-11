@@ -43,7 +43,7 @@ optional — in a plain `docker-compose up` the app talks to `api` directly on `
 
 ## Why it's built this way
 
-The rationale that drives most of the design: **the node fleet is permanently heterogeneous.**
+The rationale that drives most of the design: **the node fleet is heterogeneous.**
 
 A node is a board bolted to a solar panel in a field. There is no reliable way to push an update
 to it. Some nodes will run last year's firmware for as long as they physically survive. There is
