@@ -5,7 +5,7 @@ title: Partecipa
 # Partecipa
 
 MeshBee è portato avanti dai volontari del [Fablab Imperia APS](https://github.com/fablab-imperia),
-e si sviluppa tutto allo scoperto. Non c'è una roadmap privata né un fork interno.
+e si sviluppa in maniera aperta. Non c'è una roadmap privata né un fork interno.
 
 ## Da dove iniziare
 
@@ -16,7 +16,7 @@ Ogni repository etichetta il lavoro adatto a chi arriva come **good first issue*
 - [`meshbee-app`](https://github.com/fablab-imperia/meshbee-app/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 - [`meshbee-hardware`](https://github.com/fablab-imperia/meshbee-hardware/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 
-L'esperienza in apicoltura qui vale quanto quella nel software. Idem una stampante 3D.
+L'esperienza in apicoltura qui vale quanto quella nel software.
 
 ## Lingua
 
@@ -24,7 +24,7 @@ L'esperienza in apicoltura qui vale quanto quella nel software. Idem una stampan
 codice leggibile a tutti e cercabile con grep tra i repository.
 
 **La documentazione per le persone può essere in inglese o in italiano.** Questo sito è
-bilingue: scrivi una pagina nella lingua in cui ti trovi a tuo agio, qualcuno potrà rispecchiarla
+bilingue: scrivi una pagina nella lingua in cui ti trovi a tuo agio, qualcuno potrà tradurla
 più avanti. Quando le due versioni divergono, fa fede quella inglese.
 
 Le [pagine del contratto](contract/index.md) sono solo in inglese per scelta: si rivolgono alle

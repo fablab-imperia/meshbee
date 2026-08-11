@@ -16,7 +16,7 @@ Each repo tags approachable work as **good first issue**:
 - [`meshbee-app`](https://github.com/fablab-imperia/meshbee-app/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 - [`meshbee-hardware`](https://github.com/fablab-imperia/meshbee-hardware/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
 
-Beekeeping experience is as useful here as software experience. So is a 3D printer.
+Beekeeping experience is as useful here as software experience.
 
 ## Language
 
