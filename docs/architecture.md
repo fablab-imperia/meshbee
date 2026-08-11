@@ -34,7 +34,7 @@ flowchart TD
     CORE --> DB
 ```
 
-Two legs, not one. Hive nodes talk to each other over a **Meshtastic LoRa mesh** — no WiFi needed
+Hive nodes talk to each other over a **Meshtastic LoRa mesh** — no WiFi needed
 in the apiary. A reading hops across the mesh until it reaches a node with internet access, which
 acts as the gateway and forwards it to the **MQTT broker** over an ordinary internet connection.
 
