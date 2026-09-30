@@ -12,7 +12,7 @@ hide:
 # Open beehive telemetry {.mb-hero-title}
 
 Solar ESP32 nodes in the hive, reporting temperature, humidity, weight and battery
-over a Meshtastic mesh to a FastAPI backend — and back out to your phone. Ciao
+over a Meshtastic mesh to a FastAPI backend — and back out to your phone. 
 { .mb-hero-lead }
 
 [Read the docs](overview.md){ .md-button .md-button--primary }
