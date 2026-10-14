@@ -113,11 +113,11 @@ apicoltori della zona.
 
 <div class="grid" markdown>
 
-![MeshBee – foto 1](https://gateway.makerfairerome.eu/images/26/projects/51/photo_1.png){ loading=lazy }
+![MeshBee – foto 1](assets/meshbee_live_collage.png){ loading=lazy }
 
-![MeshBee – foto 2](https://gateway.makerfairerome.eu/images/26/projects/51/photo_3.png){ loading=lazy }
+![MeshBee – foto 2](assets/meshbee_live.png){ loading=lazy }
 
-![MeshBee – foto 3](https://gateway.makerfairerome.eu/images/26/projects/51/photo_4.jpg){ loading=lazy }
+![MeshBee – foto 3](assets/meshbee_lab.jpeg){ loading=lazy }
 
 </div>
 
