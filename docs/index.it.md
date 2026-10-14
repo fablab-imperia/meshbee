@@ -119,8 +119,6 @@ apicoltori della zona.
 
 ![MeshBee – foto 3](https://gateway.makerfairerome.eu/images/26/projects/51/photo_4.jpg){ loading=lazy }
 
-![MeshBee – foto 4](https://gateway.makerfairerome.eu/images/26/projects/51/photo_5.jpg){ loading=lazy }
-
 </div>
 
 ## Non solo api
