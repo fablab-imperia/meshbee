@@ -36,5 +36,5 @@ cat <<'EOF'
 
 Start everything (HTTP + HTTPS) with:
   docker compose -f .devcontainer/compose.yaml up -d
-  → https://localhost:8443/meshbee/
+  → https://localhost:8443/
 EOF

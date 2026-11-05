@@ -5,7 +5,7 @@
 Open beehive telemetry: solar ESP32 nodes report temperature, humidity, weight and battery
 over a Meshtastic LoRa mesh to a FastAPI backend — and back out to your phone.
 
-📖 **Documentation:** <https://fablab-imperia.github.io/meshbee/>
+📖 **Documentation:** <https://meshbee.fablabimperia.org/>
 🛠️ **Built by:** [Fablab Imperia APS](https://www.fablabimperia.org)
 
 The docs site covers the architecture, roadmap and the versioned **contract** (MQTT payload
@@ -36,7 +36,7 @@ MeshBee is documentation-first, so licenses follow the content:
 ## Contributing to these docs
 
 To preview or build the documentation site locally, see
-**[Build & preview the docs](https://fablab-imperia.github.io/meshbee/develop/)**
+**[Build & preview the docs](https://meshbee.fablabimperia.org/develop/)**
 ([source](docs/develop.md)).
 
 ## Versioning
@@ -46,7 +46,7 @@ Releases follow [![SemVer 2.0.0](https://img.shields.io/badge/SemVer-2.0.0-blue.
 Commits follow [![Conventional Commits 1.0.0](https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg)](https://www.conventionalcommits.org/en/v1.0.0/).
 
 See [CONTRIBUTING](https://github.com/fablab-imperia/.github/blob/main/CONTRIBUTING.md)
-and the [compatibility matrix](https://fablab-imperia.github.io/meshbee/contract/compatibility/).
+and the [compatibility matrix](https://meshbee.fablabimperia.org/contract/compatibility/).
 
 ---
 

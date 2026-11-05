@@ -5,7 +5,7 @@
 Telemetria open per arnie: nodi ESP32 a energia solare inviano temperatura, umidità, peso e
 batteria attraverso una mesh LoRa Meshtastic a un backend FastAPI — e di nuovo fino al tuo telefono.
 
-📖 **Documentazione:** <https://fablab-imperia.github.io/meshbee/>
+📖 **Documentazione:** <https://meshbee.fablabimperia.org/>
 🛠️ **Realizzato da:** [Fablab Imperia APS](https://www.fablabimperia.org)
 
 Il sito della documentazione descrive l'architettura, la roadmap e il **contratto** versionato
@@ -36,7 +36,7 @@ MeshBee è prima di tutto documentazione, quindi le licenze seguono i contenuti:
 ## Contribuire a questa documentazione
 
 Per l'anteprima o la build del sito della documentazione in locale, vedi
-**[Build e anteprima della documentazione](https://fablab-imperia.github.io/meshbee/it/develop/)**
+**[Build e anteprima della documentazione](https://meshbee.fablabimperia.org/it/develop/)**
 ([sorgente](docs/develop.it.md)).
 
 ## Versioning
@@ -46,7 +46,7 @@ Releases follow [![SemVer 2.0.0](https://img.shields.io/badge/SemVer-2.0.0-blue.
 Commits follow [![Conventional Commits 1.0.0](https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg)](https://www.conventionalcommits.org/en/v1.0.0/).
 
 See [CONTRIBUTING](https://github.com/fablab-imperia/.github/blob/main/CONTRIBUTING.md)
-and the [compatibility matrix](https://fablab-imperia.github.io/meshbee/it/contract/compatibility/).
+and the [compatibility matrix](https://meshbee.fablabimperia.org/it/contract/compatibility/).
 
 ---
 

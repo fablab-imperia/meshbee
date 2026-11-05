@@ -7,7 +7,7 @@ hide:
 
 <div class="mb-hero" markdown>
 
-![MeshBee](/meshbee/assets/logo.svg){ .mb-hero-logo }
+![MeshBee](assets/logo.svg){ .mb-hero-logo }
 
 # Telemetria aperta per le arnie {.mb-hero-title}
 

@@ -12,7 +12,7 @@ The devcontainer image matches CI (Python 3.12, all dependencies and `gh` inside
 
 ```bash
 docker compose -f .devcontainer/compose.yaml up -d --build
-# → http://localhost:8000/meshbee/     (stop with: ... down)
+# → http://localhost:8000/     (stop with: ... down)
 ```
 
 The service runs `mkdocs serve`, so edits reload automatically.
@@ -25,7 +25,7 @@ from then on the same `up -d` also starts the TLS proxy, and `down` stops everyt
 ```bash
 ./.devcontainer/make-certs.sh     # once
 docker compose -f .devcontainer/compose.yaml up -d
-# → https://localhost:8443/meshbee/
+# → https://localhost:8443/
 ```
 
 Without certificates the proxy explains what to do and exits; HTTP still works.
