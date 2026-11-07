@@ -107,7 +107,7 @@ docker compose -f .devcontainer/compose.yaml up -d --build
 ```
 
 That's it — one command starts everything, and `mkdocs serve` is the docs service's default
-command. Open <http://localhost:8000/meshbee/>, or <https://localhost:8443/meshbee/> once you've
+command. Open <http://localhost:8000/>, or <https://localhost:8443/> once you've
 generated certs (see [HTTPS locally](#https-locally) — HTTP works without them). Edits on your
 machine reload live: the repo is bind-mounted, nothing is copied into the image. To follow the
 build output or stop everything:
@@ -154,7 +154,7 @@ Then the usual `up -d` serves HTTPS too — no extra flag:
 docker compose -f .devcontainer/compose.yaml up -d
 ```
 
-Open <https://localhost:8443/meshbee/>. Live reload still works — Caddy upgrades the WebSocket
+Open <https://localhost:8443/>. Live reload still works — Caddy upgrades the WebSocket
 transparently. Override the port with `HTTPS_PORT` if 8443 is taken.
 
 Without certs the proxy prints how to generate them and exits, and HTTP carries on as normal —
@@ -205,4 +205,4 @@ Italian pages use the `.it.md` suffix next to their English counterpart (`roadma
 `roadmap.it.md`). Every page must be listed in `nav` in `mkdocs.yml` — the build runs with
 `--strict`, so an unlisted page fails CI rather than silently going missing.
 
-Pushing to `main` deploys to <https://fablab-imperia.github.io/meshbee/> via GitHub Actions.
+Pushing to `main` deploys to <https://meshbee.fablabimperia.org/> via GitHub Actions.

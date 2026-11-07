@@ -8,7 +8,7 @@ hide:
 
 <div class="mb-hero" markdown>
 
-![MeshBee](/meshbee/assets/logo.svg){ .mb-hero-logo }
+![MeshBee](assets/logo.svg){ .mb-hero-logo }
 
 # Ascoltare l'alveare, anche da lontano {.mb-hero-title}
 

@@ -13,7 +13,7 @@ services:
     ports:
       # Host port is overridable — 8000 is a popular default and another
       # container or dev server may already hold it. `DOCS_PORT=8001 docker
-      # compose ... up -d` then serves on http://localhost:8001/meshbee/.
+      # compose ... up -d` then serves on http://localhost:8001/.
       # Container-side stays 8000 to match `mkdocs serve -a 0.0.0.0:8000`.
       - "${DOCS_PORT:-8000}:8000"
     environment:
@@ -31,7 +31,7 @@ services:
   # Starts and stops with `up`/`down` alongside docs — no profile flag.
   # Needs certs from `./make-certs.sh` (run once); without them it exits with
   # instructions rather than failing cryptically, and HTTP keeps working.
-  #   → https://localhost:8443/meshbee/
+  #   → https://localhost:8443/
   proxy:
     image: caddy:2-alpine
     depends_on: [docs]
@@ -49,7 +49,7 @@ services:
         if [ ! -f /certs/localhost.pem ] || [ ! -f /certs/localhost-key.pem ]; then
           echo "─────────────────────────────────────────────────────────────"
           echo " No TLS certs found in .devcontainer/certs/"
-          echo " HTTPS is off; HTTP still works on http://localhost:${DOCS_PORT:-8000}/meshbee/"
+          echo " HTTPS is off; HTTP still works on http://localhost:${DOCS_PORT:-8000}/"
           echo ""
           echo " To enable HTTPS, run this once on your host, then 'up -d' again:"
           echo "   ./.devcontainer/make-certs.sh"
@@ -61,7 +61,7 @@ services:
         # `up` doesn't imply HTTP is the only way in.
         echo "─────────────────────────────────────────────────────────────"
         echo " MeshBee docs"
-        echo "   HTTPS  https://localhost:${HTTPS_PORT:-8443}/meshbee/"
-        echo "   HTTP   http://localhost:${DOCS_PORT:-8000}/meshbee/"
+        echo "   HTTPS  https://localhost:${HTTPS_PORT:-8443}/"
+        echo "   HTTP   http://localhost:${DOCS_PORT:-8000}/"
         echo "─────────────────────────────────────────────────────────────"
         exec caddy run --config /etc/caddy/Caddyfile --adapter caddyfile

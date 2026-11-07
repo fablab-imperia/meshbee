@@ -12,7 +12,7 @@ L'immagine del devcontainer corrisponde alla CI (Python 3.12, tutte le dipendenz
 
 ```bash
 docker compose -f .devcontainer/compose.yaml up -d --build
-# → http://localhost:8000/meshbee/     (per fermare: ... down)
+# → http://localhost:8000/     (per fermare: ... down)
 ```
 
 Il servizio esegue `mkdocs serve`: le modifiche si ricaricano da sole.
@@ -25,7 +25,7 @@ sola: da lì in poi lo stesso `up -d` avvia anche il proxy TLS, e `down` ferma t
 ```bash
 ./.devcontainer/make-certs.sh     # una volta sola
 docker compose -f .devcontainer/compose.yaml up -d
-# → https://localhost:8443/meshbee/
+# → https://localhost:8443/
 ```
 
 Senza certificati il proxy spiega cosa fare ed esce; l'HTTP funziona lo stesso.
